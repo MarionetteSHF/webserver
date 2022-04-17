@@ -8,10 +8,19 @@ ind = Blueprint('ind', __name__)
 def categoryInd(kind):
     db = sql.get_db()
     cur = db.cursor()
+    # cur.execute(
+    #     'SELECT i.item_id,i.title, i.price,i.neededitem,p.image_source'
+    #     ' FROM Items_Posted i, Photos p '
+    #     ' WHERE i.item_id = p.item_id and category=%s'
+    #     'ORDER BY i.posted_at DESC',
+    #     (kind,)
+    # )
     cur.execute(
-        'SELECT i.item_id,i.title, i.price,i.neededitem,p.image_source'
-        ' FROM Items_Posted i, Photos p '
-        ' WHERE i.item_id = p.item_id and category=%s'
+        'SELECT i.item_id, i.title, i.price, i.neededitem, p.image_source '
+        'FROM Items_Posted i LEFT JOIN '
+        '(SELECT DISTINCT ON (item_id) item_id, image_source FROM Photos ORDER BY item_id, image_source DESC, item_id) p '
+        'ON i.item_id = p.item_id '
+        'WHERE category=%s '
         'ORDER BY i.posted_at DESC',
         (kind,)
     )
