@@ -128,7 +128,7 @@ def display(iid):
     db = sql.get_db()
     cur = db.cursor()
     cur.execute(
-        "SELECT i.*, u.name, u.email,u.phone FROM Items_Posted i,Users u  WHERE item_id = %s",
+        "SELECT i.*, u.name, u.email,u.phone FROM Items_Posted i,Users u  WHERE item_id = %s and i.user_id = u.user_id",
         (iid,),
     )
     row = cur.fetchone()
