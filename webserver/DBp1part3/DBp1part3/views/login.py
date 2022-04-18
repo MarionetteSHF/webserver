@@ -19,7 +19,7 @@ def login():
         )
         rows = cur.fetchone()
         db.close()
-        print(rows)
+        # print(rows)
         error = None
         # print(rows[0])
         if rows is None:
@@ -34,8 +34,8 @@ def login():
 
         session['email']=email
         session['user_id'] = rows[1]
-        print(session['user_id'])
-        print(session['email'])
+        # print(session['user_id'])
+        # print(session['email'])
         return redirect('index')
 
         # return render_template('auth/login.html', error=error)
@@ -78,7 +78,7 @@ def register():
                     # flash(error)
                     # return render_template('auth/register/auth.html', error =error)
                     return redirect(url_for("auth.register"))
-            print(error)
+            # print(error)
             db.close()
             flash(error)
 
@@ -95,7 +95,7 @@ def register():
             )
             rows = cur.fetchone()
             db.close()
-            print(rows)
+            # print(rows)
             error = None
             # print(rows[0])
             if rows is None:
@@ -127,3 +127,4 @@ def register():
 def logout():
     session.clear()
     return redirect(url_for('index'))
+
